@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termini e Condizioni di Servizio – ZynTicino</title>
+    <style>
+        /* Reset base */
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        /* Tasto Home in alto */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;  /* Rimuove la sottolineatura */
+        }
+
+        .home-btn:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .terms-and-conditions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            margin: 20px 0;
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pulsante Home -->
+    <a href="index.html" class="home-btn">Home</a>
+
+    <div class="container">
+        <div class="terms-and-conditions">
+            <h1>Termini e Condizioni di Servizio – ZynTicino</h1>
+            <p>Benvenuto su ZynTicino. L'utilizzo dei nostri servizi e la vendita dei nostri prodotti, tra cui Snus Zyn, sono soggetti alle seguenti condizioni. Si prega di leggere attentamente i presenti Termini e Condizioni prima di procedere con l'acquisto e l'uso dei nostri prodotti.</p>
+
+            <h2>Accettazione dei Termini</h2>
+            <p>Accedendo e utilizzando il sito web di ZynTicino, l'utente accetta di rispettare i presenti Termini e Condizioni. Se non si è d'accordo con tali termini, si invita a non utilizzare il nostro servizio.</p>
+
+            <h2>Responsabilità dell'Utente</h2>
+            <p>L'utente è l'unico responsabile per l'uso che fa dei prodotti acquistati tramite il nostro sito web. ZynTicino non è responsabile per eventuali danni o conseguenze derivanti da un uso improprio, irresponsabile, non autorizzato o supervisionato dei nostri prodotti, inclusi i prodotti Snus Zyn. È responsabilità dell'utente accertarsi di rispettare tutte le leggi e normative locali relative all'acquisto e all'uso del Snus.</p>
+
+            <h2>Uso Responsabile dei Prodotti</h2>
+            <p>I nostri prodotti sono destinati a un uso esclusivamente personale. Non siamo responsabili per eventuali danni alla salute derivanti dall'uso dei nostri prodotti. Raccomandiamo di utilizzare i prodotti in modo responsabile, seguendo le istruzioni e le indicazioni per l'uso fornite.</p>
+
+            <h2>Esclusione di Responsabilità</h2>
+            <p>ZynTicino non si assume alcuna responsabilità per danni diretti, indiretti, accidentali, speciali o consequenziali derivanti dall'uso o dall'incapacità di utilizzare i nostri prodotti. In nessun caso la responsabilità di ZynTicino sarà superiore al valore totale dell'acquisto effettuato dall'utente.</p>
+
+            <h2>Risoluzione delle Dispute</h2>
+            <p>ZynTicino si riserva il diritto di astenersi da prendere parte a qualsiasi disputa legale, procedura legale o controversia per irresponsabilità del cliente o uso inappropropriato/non autorizzato o qualsiasi altra causa.</p>
+
+            <h2>Modifiche ai Termini</h2>
+            <p>ZynTicino si riserva il diritto di modificare i presenti Termini e Condizioni in qualsiasi momento, senza preavviso. Eventuali modifiche saranno pubblicate sul nostro sito e diventeranno vincolanti per l'utente al momento della pubblicazione.</p>
+
+            <h2>Privacy e Protezione dei Dati</h2>
+            <p>La protezione dei dati personali degli utenti è una priorità per ZynTicino. I dati raccolti durante il processo di registrazione e acquisto sono trattati in conformità con la nostra Politica sulla Privacy. Si invita l'utente a consultare la Politica sulla Privacy per maggiori dettagli su come vengono gestiti i propri dati.</p>
+
+            <h2>Leggi Applicabili</h2>
+            <p>I presenti Termini e Condizioni sono regolati dalle leggi in vigore nel territorio in cui ZynTicino ha sede. Qualsiasi disputa legale che non possa essere risolta amichevolmente sarà sottoposta alla giurisdizione competente.</p>
+
+            <h2>Conclusione</h2>
+            <p>L'uso del nostro sito implica l'accettazione di tutti i termini e le condizioni sopra riportati. Se hai domande o dubbi, non esitare a contattarci tramite i canali ufficiali.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ZynTicino. Tutti i diritti riservati.</p>
+    </footer>
+
+</body>
+</html>
