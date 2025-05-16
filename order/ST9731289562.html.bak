@@ -302,15 +302,15 @@
 
 	<div id="login-container">
         <div id="login-form">
-            <h3 class="text-center">Inserisci la password</h3>
+            <h3 class="text-center">Inserisci il nome dell'acquirente</h3>
             <form id="password-form">
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" class="form-control" placeholder="Password" required>
+                    <label for="password">Nome:</label>
+                    <input type="password" id="password" class="form-control" placeholder="Nome Acquirente" required>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Accedi</button>
             </form>
-            <p id="error-message" class="text-danger text-center" style="display: none;">Password errata. Riprova.</p>
+            <p id="error-message" class="text-danger text-center" style="display: none;">Nome errato. Riprova.</p>
         </div>
     </div>
 	
@@ -368,7 +368,7 @@
 		</script>
 		<script>
 	// Password corretta
-	const correctPassword = 'password123';
+	const correctPassword = 'Francesco';
 
 	function setCookie(name, value, days) {
 		const d = new Date();
@@ -404,6 +404,10 @@
 			document.body.classList.add('loaded');
 		} else {
 			document.getElementById('error-message').style.display = 'block';
+			
+			setTimeout(function() {
+				window.location.href = "../index.html";
+			}, 3000);
 		}
 	});
 
