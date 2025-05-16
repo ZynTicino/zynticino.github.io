@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controllo Ordine</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 200px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff8c94;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff5e6c;
+    }
+
+    .message {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: red;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Controlla il tuo ordine</h2>
+    <input type="number" id="orderId" placeholder="Immetti ID ordine" />
+    <button onclick="checkOrder()">Conferma</button>
+    <div class="message" id="message">Ordine non trovato.</div>
+  </div>
+
+  <script>
+    function checkOrder() {
+      const id = document.getElementById('orderId').value.trim();
+      const messageEl = document.getElementById('message');
+      messageEl.style.display = 'none';
+
+      if (!id) {
+        messageEl.textContent = "Inserisci un ID valido.";
+        messageEl.style.display = 'block';
+        return;
+      }
+
+      fetch(`./order/${id}.html`, { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = `./order/${id}.html`;
+          } else {
+            messageEl.textContent = "Ordine non trovato.";
+            messageEl.style.display = 'block';
+          }
+        })
+        .catch(() => {
+          messageEl.textContent = "Errore di rete o ordine non trovato.";
+          messageEl.style.display = 'block';
+        });
+    }
+  </script>
+</body>
+</html>
