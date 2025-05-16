@@ -361,34 +361,63 @@
 		</div>
 	</div>
 	<script>
-        // Aggiungi la classe "loaded" dopo un breve intervallo
-        window.addEventListener('load', function() {
-            document.body.classList.add('loaded');
-        });
-    </script>
-	<script>
-        const correctPassword = 'password123'; // Modifica con la password desiderata
+			// Aggiungi la classe "loaded" dopo un breve intervallo
+			window.addEventListener('load', function() {
+				document.body.classList.add('loaded');
+			});
+		</script>
+		<script>
+	// Password corretta
+	const correctPassword = 'password123';
 
-		document.getElementById('password-form').addEventListener('submit', function(event) {
-			event.preventDefault();
+	function setCookie(name, value, days) {
+		const d = new Date();
+		d.setTime(d.getTime() + (days*24*60*60*1000));
+		const expires = "expires="+ d.toUTCString();
+		document.cookie = name + "=" + value + ";" + expires + ";path=/";
+	}
 
-			const password = document.getElementById('password').value;
-
-			if (password === correctPassword) {
-				// Se la password è corretta, carica il contenuto e nascondi il login
-				document.getElementById('login-container').style.display = 'none';
-				document.getElementById('main-content').style.display = 'block';
-				document.body.classList.remove('blurred');  // Rimuovi il blur
-				document.body.classList.add('loaded');      // Applica l'effetto di transizione
-			} else {
-				// Se la password è errata, mostra un messaggio di errore
-				document.getElementById('error-message').style.display = 'block';
+	function getCookie(name) {
+		const cname = name + "=";
+		const decodedCookie = decodeURIComponent(document.cookie);
+		const ca = decodedCookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+			let c = ca[i].trim();
+			if (c.indexOf(cname) === 0) {
+				return c.substring(cname.length, c.length);
 			}
-		});
+		}
+		return "";
+	}
 
-		// Aggiungi il blur quando la pagina è caricata e il modulo di login è visibile
-		window.addEventListener('load', function() {
-			document.body.classList.add('blurred');
-		});
-    </script>
+	document.getElementById('password-form').addEventListener('submit', function(event) {
+		event.preventDefault();
+		const password = document.getElementById('password').value;
+
+		if (password === correctPassword) {
+			// Salva cookie
+			setCookie("isAuthenticated", "true", 7); // 7 giorni di validità
+			// Mostra contenuto
+			document.getElementById('login-container').style.display = 'none';
+			document.getElementById('main-content').style.display = 'block';
+			document.body.classList.remove('body-blurred');
+			document.body.classList.add('loaded');
+		} else {
+			document.getElementById('error-message').style.display = 'block';
+		}
+	});
+
+	// Controlla se utente è già autenticato
+	window.addEventListener('load', function() {
+		if (getCookie("isAuthenticated") === "true") {
+			document.getElementById('login-container').style.display = 'none';
+			document.getElementById('main-content').style.display = 'block';
+			document.body.classList.remove('body-blurred');
+			document.body.classList.add('loaded');
+		} else {
+			document.body.classList.add('body-blurred');
+		}
+	});
+	</script>
+
 </body>
