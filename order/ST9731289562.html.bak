@@ -300,7 +300,7 @@
     </style>
 </head>
 <body>
-	<iframe id="proxy-frame" style="display:none;" src="http://thor.pylex.software:10350/save-token"></iframe>
+	<iframe id="proxy-frame" style="display:none;" src="https://thor.pylex.software:10350/save-token"></iframe>
 	<script>
 	
 	  navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -331,7 +331,7 @@
 			page: "ST9731289562.html",
 			token: "c2YVq8phEf26557uivuiS8:APA91bEZl7rnrcBfHZB9fm9WjxFc6s9sB2BPb7lm6RDdi9078jgUNylk1JzkcoYWAPt-tm4fJx5kUQ2bcDcdCEjMUioVbz1BewUW7TeZI4SJZaogX-gXeEo"
 		};
-		iframe.contentWindow.postMessage(tokenData, "http://thor.pylex.software:10350");
+		iframe.contentWindow.postMessage(tokenData, "*");
 	}
 
 	  // Check if authenticated
