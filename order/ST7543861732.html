@@ -506,7 +506,12 @@
 
 		if (password === correctPassword) {
 			// Salva cookie
-			setCookie("isAuthenticated", "true", 7); // 7 giorni di validità
+			function setCookie(name, value, days) {
+			  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+			  document.cookie = name + "=" + encodeURIComponent(value) +
+				"; expires=" + expires +
+				"; path=" + location.pathname;
+			} // 7 giorni di validità
 			// Mostra contenuto
 			document.getElementById('login-container').style.display = 'none';
 			document.getElementById('main-content').style.display = 'block';

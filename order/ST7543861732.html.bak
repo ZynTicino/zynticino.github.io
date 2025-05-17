@@ -478,7 +478,7 @@
 		</script>
 		<script>
 	// Password corretta
-	const correctPassword = 'Francesco';
+	const correctPassword = 'Joël';
 
 	function setCookie(name, value, days) {
 		const d = new Date();
