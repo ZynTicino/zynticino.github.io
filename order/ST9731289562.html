@@ -301,8 +301,9 @@
 </head>
 <body>
 	<script>
-	  // Inizializza Firebase
-	  navigator.serviceWorker.register('../firebase-messaging-sw.js')
+	
+	  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+	  // Initialize Firebase
 	  const firebaseConfig = {
 		apiKey: "AIzaSyAjCBC7kydkvMS01SZupRagnPePEf6Pwts",
 		authDomain: "zynticino.firebaseapp.com",
@@ -314,7 +315,7 @@
 
 	  const messaging = firebase.messaging();
 
-	  // Funzione per ottenere il cookie
+	  // Function to get Cookie
 	  function getCookie(name) {
 		const value = `; ${document.cookie}`;
 		const parts = value.split(`; ${name}=`);
@@ -323,17 +324,16 @@
 
 	  const isAuthenticated = getCookie("isAuthenticated") === "true";
 
-	  // Solo se l'utente è autenticato
+	  // Check if authenticated
 	  if (isAuthenticated) {
-		// Richiesta di permesso per le notifiche
+		// Only request permission once
 		Notification.requestPermission().then(permission => {
 		  if (permission === 'granted') {
-			// Ottieni il token FCM
 			messaging.getToken({ vapidKey: 'BCAXYvsD_eqYvAYd_e5c9DcLSEu792TiC0C__Jgh1KSNjdaq0FbYtSSY2ZbWHTJKEyOs1ZHyiGMOcoA_J9B0mKQ' })
 			  .then((currentToken) => {
 				if (currentToken) {
 				  console.log("Token FCM:", currentToken);
-				  // Salva il token per usarlo o inviarlo al server per inviare notifiche
+				  // Save the token or send to your server for later use
 				} else {
 				  console.log("Impossibile ottenere il token FCM");
 				}
@@ -344,7 +344,7 @@
 		  }
 		});
 
-		// Gestire notifiche in primo piano
+		// Handle foreground notifications
 		messaging.onMessage(payload => {
 		  new Notification(payload.notification.title, {
 			body: payload.notification.body
@@ -352,56 +352,28 @@
 		});
 	  }
 
-	  // Aggiungi la classe "loaded" per gestire il caricamento della pagina
-	  window.addEventListener('load', function() {
-		document.body.classList.add('loaded');
-	  });
-
-	  // Gestire il login
-	  const correctPassword = 'Francesco';
-
-	  function setCookie(name, value, days) {
-		const d = new Date();
-		d.setTime(d.getTime() + (days*24*60*60*1000));
-		const expires = "expires="+ d.toUTCString();
-		document.cookie = name + "=" + value + ";" + expires + ";path=/";
-	  }
-
-	  // Event listener per il form di login
-	  document.getElementById('password-form').addEventListener('submit', function(event) {
-		event.preventDefault();
-		const password = document.getElementById('password').value;
-
-		if (password === correctPassword) {
-			// Salva il cookie per l'autenticazione
-			setCookie("isAuthenticated", "true", 7); // Valido per 7 giorni
-			// Mostra il contenuto principale
-			document.getElementById('login-container').style.display = 'none';
-			document.getElementById('main-content').style.display = 'block';
-			document.body.classList.remove('body-blurred');
-			document.body.classList.add('loaded');
-		} else {
-			document.getElementById('error-message').style.display = 'block';
-			
-			setTimeout(function() {
-				window.location.href = "../index.html"; // Ritorna alla home dopo 3 secondi
-			}, 3000);
-		}
-	  });
-
-	  // Controlla se l'utente è già autenticato
-	  window.addEventListener('load', function() {
-		if (getCookie("isAuthenticated") === "true") {
-			document.getElementById('login-container').style.display = 'none';
-			document.getElementById('main-content').style.display = 'block';
-			document.body.classList.remove('body-blurred');
-			document.body.classList.add('loaded');
-		} else {
-			document.body.classList.add('body-blurred');
-		}
+	  // Request Notification Permission when the user clicks the button
+	  document.getElementById("enable-notifications").addEventListener("click", () => {
+		Notification.requestPermission().then(permission => {
+		  if (permission === "granted") {
+			console.log("Permesso notifiche concesso!");
+			messaging.getToken({ vapidKey: 'BCAXYvsD_eqYvAYd_e5c9DcLSEu792TiC0C__Jgh1KSNjdaq0FbYtSSY2ZbWHTJKEyOs1ZHyiGMOcoA_J9B0mKQ' })
+			  .then((currentToken) => {
+				if (currentToken) {
+				  console.log("Token FCM:", currentToken);
+				  // Save this token to Firebase or somewhere to use for admin messages
+				} else {
+				  console.log("Impossibile ottenere il token FCM");
+				}
+			  }).catch((err) => {
+				console.log("Errore nel recupero del token:", err);
+			  });
+		  } else {
+			console.log("Permesso notifiche negato.");
+		  }
+		});
 	  });
 	</script>
-
 
 	<img id="loading-logo" src="https://zynticino.github.io/favicon.png" alt="Logo di caricamento">
 
