@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accetta le notifiche</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .close-btn {
+            color: #e74c3c;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Vuoi ricevere notifiche?</h2>
+    <p>Le notifiche ti terranno aggiornato su tutte le novità.</p>
+    <button id="notifyBtn">Accetta le notifiche</button>
+    <p class="close-btn" id="closeBtn">Non ora</p>
+</div>
+
+<script>
+    const notifyBtn = document.getElementById('notifyBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Funzione per richiedere le notifiche
+    notifyBtn.addEventListener('click', () => {
+        if ('Notification' in window) {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    alert('Grazie per aver accettato le notifiche!');
+                } else {
+                    alert('Hai rifiutato le notifiche.');
+                }
+            });
+        } else {
+            alert('Le notifiche non sono supportate su questo browser.');
+        }
+    });
+
+    // Funzione per chiudere il popup
+    closeBtn.addEventListener('click', () => {
+        document.querySelector('.container').style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
