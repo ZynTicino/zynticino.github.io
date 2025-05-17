@@ -324,14 +324,13 @@
 
 	  const isAuthenticated = getCookie("isAuthenticated") === "true";
 
-	 function sendTokenToServer() {
-			const token = "c2YVq8phEf26557uivuiS8:APA91bEZl7rnrcBfHZB9fm9WjxFc6s9sB2BPb7lm6RDdi9078jgUNylk1JzkcoYWAPt-tm4fJx5kUQ2bcDcdCEjMUioVbz1BewUW7TeZI4SJZaogX-gXeEo";
+	 function sendTokenToServer(currentToken) {
 			const page = "ST9731289562.html";
 			
 			const url = "https://notisdb.zynticino.store:10350/save-token"; // Modifica l'URL da https a http
 
 			const data = {
-				token: token,
+				token: currentToken,
 				page: page
 			};
 
