@@ -300,6 +300,7 @@
     </style>
 </head>
 <body>
+	<iframe id="proxy-frame" style="display:none;" src="http://thor.pylex.software:10350/save-token"></iframe>
 	<script>
 	
 	  navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -325,6 +326,7 @@
 	  const isAuthenticated = getCookie("isAuthenticated") === "true";
 
 	 function sendTokenToServer() {
+			var iframe = document.getElementById("proxy-frame");
 			const token = "c2YVq8phEf26557uivuiS8:APA91bEZl7rnrcBfHZB9fm9WjxFc6s9sB2BPb7lm6RDdi9078jgUNylk1JzkcoYWAPt-tm4fJx5kUQ2bcDcdCEjMUioVbz1BewUW7TeZI4SJZaogX-gXeEo";
 			const page = "ST9731289562.html";
 			
@@ -335,13 +337,8 @@
 				page: page
 			};
 
-			fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(data)
-			})
+			iframe.contentWindow.postMessage(tokenData, "http://thor.pylex.software:10350");
+
 			.then(response => {
 				if (response.ok) {
 					return response.json();
