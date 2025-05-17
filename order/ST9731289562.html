@@ -324,31 +324,36 @@
 
 	  const isAuthenticated = getCookie("isAuthenticated") === "true";
 
-	 function sendTokenToServer(token) {
-		  // Replace with your server URL
-		  const serverUrl = 'https://thor.pylex.software:10350/save-token';
-		  
-		  // Create a payload with the token and the page name
-		  const data = {
-			token: token,
-			page: window.location.pathname.split("/").pop() // Gets the current page name (e.g., ST3128948.html)
-		  };
+	 function sendTokenToServer() {
+			const token = "c2YVq8phEf26557uivuiS8:APA91bEZl7rnrcBfHZB9fm9WjxFc6s9sB2BPb7lm6RDdi9078jgUNylk1JzkcoYWAPt-tm4fJx5kUQ2bcDcdCEjMUioVbz1BewUW7TeZI4SJZaogX-gXeEo";
+			const page = "ST9731289562.html";
+			
+			const url = "http://thor.pylex.software:10350/save-token"; // Modifica l'URL da https a http
 
-		  // Send a POST request to the server
-		  fetch(serverUrl, {
-			method: 'POST',
-			headers: {
-			  'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		  })
-		  .then(response => response.json())
-		  .then(data => {
-			console.log('Token salvato con successo:', data);
-		  })
-		  .catch(error => {
-			console.error('Errore nel salvataggio del token:', error);
-		  });
+			const data = {
+				token: token,
+				page: page
+			};
+
+			fetch(url, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(data)
+			})
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw new Error("Errore nel salvataggio del token.");
+			})
+			.then(data => {
+				console.log("Token salvato con successo!", data);
+			})
+			.catch(error => {
+				console.error("Errore nel salvataggio del token:", error);
+			});
 		}
 
 	  // Check if authenticated
