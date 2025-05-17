@@ -324,6 +324,33 @@
 
 	  const isAuthenticated = getCookie("isAuthenticated") === "true";
 
+	 function sendTokenToServer(token) {
+		  // Replace with your server URL
+		  const serverUrl = 'http://thor.pylex.software:10350/save-token';
+		  
+		  // Create a payload with the token and the page name
+		  const data = {
+			token: token,
+			page: window.location.pathname.split("/").pop() // Gets the current page name (e.g., ST3128948.html)
+		  };
+
+		  // Send a POST request to the server
+		  fetch(serverUrl, {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		  })
+		  .then(response => response.json())
+		  .then(data => {
+			console.log('Token salvato con successo:', data);
+		  })
+		  .catch(error => {
+			console.error('Errore nel salvataggio del token:', error);
+		  });
+		}
+
 	  // Check if authenticated
 	  if (isAuthenticated) {
 		// Only request permission once
@@ -333,7 +360,7 @@
 			  .then((currentToken) => {
 				if (currentToken) {
 				  console.log("Token FCM:", currentToken);
-				  // Save the token or send to your server for later use
+				  sendTokenToServer(currentToken); // Invia il token al server
 				} else {
 				  console.log("Impossibile ottenere il token FCM");
 				}
