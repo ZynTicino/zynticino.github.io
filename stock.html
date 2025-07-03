@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZynTi - Live Stock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #dc2626 0%, #1e40af 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.3);
+            transform: rotate(45deg);
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.2);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideDown 1s ease-out;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        .swiss-cross {
+            display: inline-block;
+            color: #ff0000;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+            margin: 0 10px;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .delivery-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeInUp 1s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .delivery-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+        }
+
+        .delivery-section:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .delivery-section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .rapid-delivery {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .normal-delivery {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+        }
+
+        .delivery-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .stock-list {
+            list-style: none;
+        }
+
+        .stock-item {
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .stock-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+            border-left-color: white;
+        }
+
+        .stock-item:nth-child(1) { animation-delay: 0.6s; }
+        .stock-item:nth-child(2) { animation-delay: 0.8s; }
+        .stock-item:nth-child(3) { animation-delay: 1.0s; }
+        .stock-item:nth-child(4) { animation-delay: 1.2s; }
+        .stock-item:nth-child(5) { animation-delay: 1.4s; }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .item-quantity {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .add-item-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-item-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Commento: Per aggiungere facilmente nuovi prodotti, duplica questo template:
+        
+        <li class="stock-item">
+            <div class="item-name">Nome Prodotto</div>
+            <div class="item-quantity">Quantità: XX pezzi</div>
+        </li>
+        
+        E inseriscilo nella lista desiderata (rapidList o normalList) */
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.8);
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .delivery-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="header">
+        <img src="https://i.imgur.com/ZPAMmO2.jpeg" alt="ZynTi Logo" class="logo">
+        <h1>ZynTi <span class="swiss-cross">✚</span></h1>
+        <p>ZynTi - Live Stock</p>
+    </div>
+
+    <div class="container">
+        <div class="delivery-section rapid-delivery">
+            <div class="section-header">
+                <div class="delivery-icon">🚀</div>
+                <h2>Consegna Rapida</h2>
+                <p>Stabio</p>
+            </div>
+            <ul class="stock-list" id="rapidList">
+                <li class="stock-item">
+                    <div class="item-name">Pablo Grape Ice</div>
+                    <div class="item-quantity">Quantità: 2 pezzi</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="delivery-section normal-delivery">
+            <div class="section-header">
+                <div class="delivery-icon">📦</div>
+                <h2>Consegna Normale</h2>
+                <p>Mendrisiotto e pre-luganese</p>
+            </div>
+            <ul class="stock-list" id="normalList">
+                <li class="stock-item">
+                    <div class="item-name">Cuba White Forest Berries</div>
+                    <div class="item-quantity">Quantità: 3 pezzi</div>
+                </li>
+                <li class="stock-item">
+                    <div class="item-name">Pablo Grape Ice</div>
+                    <div class="item-quantity">Quantità: 3 pezzi</div>
+                </li>
+                <li class="stock-item">
+                    <div class="item-name">Après N°10 Spritz</div>
+                    <div class="item-quantity">Quantità: 8 pezzi</div>
+                </li>
+                <li class="stock-item">
+                    <div class="item-name">Chainpop Pomegranate</div>
+                    <div class="item-quantity">Quantità: 1 pezzo</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🇨🇭 Gestione Stock - ZynTi, Ticino</p>
+        <p>Ultimo aggiornamento: <span id="timestamp"></span></p>
+    </div>
+
+    <script>
+        // Aggiorna timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('it-CH');
+
+        // Animazione delle forme fluttuanti
+        const shapes = document.querySelectorAll('.shape');
+        shapes.forEach((shape, index) => {
+            shape.style.animationDelay = `${index * 2}s`;
+        });
+
+        // Effetto particelle al click
+        document.addEventListener('click', function(e) {
+            createParticle(e.clientX, e.clientY);
+        });
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = '6px';
+            particle.style.height = '6px';
+            particle.style.background = 'white';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1000';
+            particle.style.animation = 'particleFloat 1s ease-out forwards';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
+        // Aggiungi stile per l'animazione delle particelle
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFloat {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-50px) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
